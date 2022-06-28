@@ -1,3 +1,4 @@
+import { BullModule } from '@nestjs/bull';
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
@@ -7,6 +8,12 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    BullModule.registerQueue({
+      name: 'audo',
+      redis: {
+        port: 6380,
+      },
+    });
     return this.appService.getHello();
   }
 }
